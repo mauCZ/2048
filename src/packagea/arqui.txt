@@ -1,0 +1,50 @@
+
+convenciones para el proyecto:
+
+1. nombres de paquetes
+
+   paquetea  - j2048backend
+   paqueteb  - j2048frontend
+   home      - j2048
+
+   j2048   Main
+     |
+      ---- backend   Tablero y familia
+     |
+      ---- frontend
+             |
+	      ----- consola  TableroConsola y familia
+	     |
+	      ----- gui      TableroGUI y familia
+
+
+2. lista de metodos publicos y sus firmas
+
+  2 0 0 0  -> false
+  2 4 8 16 -> false
+
+   Main
+      Tablero
+        Tablero()
+        boolean insertarNumeroDos()  - true pudo insertar
+	boolean moverIzquierda()     - true pudo mover
+	boolean moverDerecha()       - true pudo mover
+	boolean moverArriba()        - true pudo mover
+	boolean moverAbajo()         - true pudo mover
+	String toString()            - "n n n n|n n n n|n n n n|n n n n"
+	                               n es una cadena de 1 a 4 caracteres max
+				       siempre hay un espacio entre numeros
+				       no hay espacio entre |
+	boolean alcanceLimite()      - true se alcanzo el maximo
+	                             - false no se alcanzo el maximo
+
+      TableroConsola
+        TableroConsola(Tablero)
+	void correr()
+
+3. nos falta definir:
+
+   a. si queremos hacer que insertarNumeroDos sea privado en vez de publico
+   b. definir con mayor precision el resultado de los metodos mover
+   c. si necesitamos un metodo para indicar si se perdio
+
