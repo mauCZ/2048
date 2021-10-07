@@ -6,23 +6,37 @@ public class TableroConsola {
   private Tablero tablero;
   private Scanner sc;
   public TableroConsola(Tablero tablero){
-    System.out.println("COMANDOS:\nmover izquierda: a\nmover derecha:   d\nmover arriba:    w\nmover abajo:     s");
+    System.out.println("\n\nCOMANDOS:\nmover izquierda: a\nmover derecha:   d\nmover arriba:    w\nmover abajo:     s");
     this.tablero = tablero;
     sc = new Scanner(System.in);
   }
-  private String mostrarTablero(){
-    String str = this.tablero.toString();
+  private String formatearTablero(){
+    String[] nums = this.tablero.toString().split("[\s|]");
     StringBuilder strFormated = new StringBuilder("");
-    for(int i =0;i<str.length();i++){
-      char c = str.charAt(i);
-      if(c == '|'){
-        strFormated.append(c);
+    int newLine = 1;
+    for(int i =0;i<nums.length;i++){
+      String numFormated = formatearNumero(Integer.parseInt(nums[i]));
+      strFormated.append(numFormated);
+      if(newLine % 4 == 0){
         strFormated.append('\n');
-      }else{
-        strFormated.append(c);
       }
+      newLine++;
     }
-    return strFormated.toString().trim();
+    return strFormated.toString();
+  }
+  private String formatearNumero(int n ){
+    if(n >= 1000){
+      return ""+n;
+    }
+    else if(n >= 100){
+      return " "+n;
+    }
+    else if(n >= 10){
+      return "  "+n;
+    }
+    else{
+      return "   "+n;
+    }
   }
   private boolean tableroLleno(){
     String[] nums = tablero.toString().split("[\s|]");
@@ -40,29 +54,31 @@ public class TableroConsola {
     boolean ganaste = false;
     boolean perdiste = false; //pierde si se llena el tablero
     while(!ganaste && !perdiste){
-      System.out.println(mostrarTablero());
-      System.out.print("\n\n\nComando: ");
+      System.out.println(formatearTablero());
+      System.out.print("\nComando: ");
       comando = sc.next();
+
+      boolean sePudoMover = false;
       if(comando.equals("a")){
-        tablero.moverIzquierda();
+        sePudoMover = tablero.moverIzquierda();
       }else if(comando.equals("d")){
-        tablero.moverDerecha();
+        sePudoMover = tablero.moverDerecha();
       }else if(comando.equals("w")){
-        tablero.moverArriba();
+        sePudoMover = tablero.moverArriba();
       }else if(comando.equals("s")) {
-        tablero.moverAbajo();
+        sePudoMover = tablero.moverAbajo();
       }else{
         System.out.println("Comando invalido");
       }
 
-      if(tableroLleno()){
+      if(!sePudoMover){
         perdiste = true;
       }
       else if(tablero.alcanceLimite()){
         ganaste = true;
       }
     }
-    System.out.println(mostrarTablero());
+    System.out.println(formatearTablero());
     if(perdiste){
       System.out.println("PERDISTE");
     }

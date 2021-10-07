@@ -99,7 +99,7 @@ public class Tablero {
     }
     return str.trim();
   }
-  public void moverIzquierda(){
+  public boolean moverIzquierda(){
     recorrerHorizontal(0,dimension-1);
     for(int fil=0;fil<dimension;fil++){
       int colTail = 0,colHead = 1;
@@ -113,9 +113,13 @@ public class Tablero {
       }
     }
     recorrerHorizontal(0,dimension-1);
+    if (lleno()) {
+      return false;
+    }
     insertarNumero2();
+    return true;
   }
-  public void moverDerecha(){
+  public boolean moverDerecha(){
     recorrerHorizontal(dimension-1, 0);
     for(int fil = 0;fil < dimension; fil++){
       int colTail = dimension-1, colHead = dimension-2;
@@ -129,9 +133,13 @@ public class Tablero {
       }
     }
     recorrerHorizontal(dimension-1, 0);
+    if (lleno()) {
+      return false;
+    }
     insertarNumero2();
+    return true;
   }
-  public void moverArriba() {
+  public boolean moverArriba() {
     recorrerVertical(0,dimension-1);
     for(int col = 0; col < dimension; col++){
       int filTail = 0, filHead = 1;
@@ -145,9 +153,13 @@ public class Tablero {
       }
     }
     recorrerVertical(0,dimension-1);
+    if (lleno()) {
+      return false;
+    }
     insertarNumero2();
+    return true;
   }
-  public void moverAbajo(){
+  public boolean moverAbajo(){
     recorrerVertical(dimension-1, 0);
     for(int col = 0; col < dimension; col++){
       int filTail = dimension-1, filHead = dimension-2;
@@ -161,7 +173,11 @@ public class Tablero {
       }
     }
     recorrerVertical(dimension-1, 0);
+    if (lleno()) {
+      return false;
+    }
     insertarNumero2();
+    return true;
   }
   public boolean alcanceLimite() {
     for(int fil =0;fil<dimension;fil++){
